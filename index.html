@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Compras Interativa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <div>
+        <input type="text" id="itemNome" placeholder="Nome do item">
+        <input type="number" id="itemQtd" placeholder="Quantidade" min="1">
+        <input type="number" id="itemPeso" placeholder="Peso (kg)" step="0.1" min="0">
+        <input type="number" id="itemValor" placeholder="Valor por kg (R$)" step="0.01" min="0">
+        <button onclick="adicionarItem()">Adicionar</button>
+    </div>
+    <table id="tabelaCompras">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantidade</th>
+                <th>Peso (kg)</th>
+                <th>Valor/kg (R$)</th>
+                <th>Total (R$)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaItens"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total Geral:</td>
+                <td id="totalGeral">0,00</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <button onclick="salvarLista()">Salvar Lista</button>
+    <button onclick="carregarLista()">Carregar Lista</button>
+    <script src="script.js"></script>
+</body>
+</html>
