@@ -6,36 +6,257 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Lista de Compras</h1>
-    <div>
-        <input type="text" id="itemNome" placeholder="Nome do item">
-        <input type="number" id="itemQtd" placeholder="Quantidade" min="1">
-        <input type="number" id="itemPeso" placeholder="Peso (kg)" step="0.1" min="0">
-        <input type="number" id="itemValor" placeholder="Valor por kg (R$)" step="0.01" min="0">
-        <button id="btnAcao" onclick="adicionarOuEditarItem()">Adicionar</button>
+    <div class="container">
+        <h1><span class="titulo">Lista de Compras</span> <img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" alt="Carrinho" class="carrinho"></h1>
+        <div class="formulario">
+            <input type="text" id="itemNome" placeholder="Nome do item">
+            <input type="number" id="itemQtd" placeholder="Quantidade" min="0">
+            <input type="number" id="itemPeso" placeholder="Peso (kg)" step="0.1" min="0">
+            <input type="number" id="itemValor" placeholder="Valor por kg (R$)" step="0.01" min="0">
+            <button id="btnAcao" onclick="adicionarOuEditarItem()">Adicionar</button>
+        </div>
+        <p>Total de itens: <span id="totalItens">0</span></p>
+        <div class="tabela-container">
+            <table id="tabelaCompras">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade</th>
+                        <th>Peso (kg)</th>
+                        <th>Valor/kg (R$)</th>
+                        <th>Total (R$)</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="listaItens"></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Total Geral:</td>
+                        <td id="totalGeral">0,00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="botoes">
+            <button onclick="salvarLista()">Salvar Lista</button>
+            <button onclick="carregarLista()">Carregar Lista</button>
+            <button onclick="limparLista()">Limpar Lista</button>
+        </div>
+        <div class="categorias">
+            <h2>Itens Pré-Definidos</h2>
+            <div class="categorias-container">
+                <details>
+                    <summary>Alimentos básicos</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Arroz')">Arroz</button>
+                        <button onclick="adicionarItemPreDefinido('Feijão')">Feijão</button>
+                        <button onclick="adicionarItemPreDefinido('Macarrão')">Macarrão</button>
+                        <button onclick="adicionarItemPreDefinido('Farinha de trigo')">Farinha de trigo</button>
+                        <button onclick="adicionarItemPreDefinido('Farinha de mandioca')">Farinha de mandioca</button>
+                        <button onclick="adicionarItemPreDefinido('Farinha de milho')">Farinha de milho</button>
+                        <button onclick="adicionarItemPreDefinido('Aveia')">Aveia</button>
+                        <button onclick="adicionarItemPreDefinido('Fubá')">Fubá</button>
+                        <button onclick="adicionarItemPreDefinido('Lentilha')">Lentilha</button>
+                        <button onclick="adicionarItemPreDefinido('Grão-de-bico')">Grão-de-bico</button>
+                        <button onclick="adicionarItemPreDefinido('Milho de pipoca')">Milho de pipoca</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Pães e massas</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Pão francês')">Pão francês</button>
+                        <button onclick="adicionarItemPreDefinido('Pão de forma')">Pão de forma</button>
+                        <button onclick="adicionarItemPreDefinido('Pão de hambúrguer')">Pão de hambúrguer</button>
+                        <button onclick="adicionarItemPreDefinido('Pão de hot dog')">Pão de hot dog</button>
+                        <button onclick="adicionarItemPreDefinido('Pão de queijo')">Pão de queijo</button>
+                        <button onclick="adicionarItemPreDefinido('Torradas')">Torradas</button>
+                        <button onclick="adicionarItemPreDefinido('Wraps')">Wraps</button>
+                        <button onclick="adicionarItemPreDefinido('Massa de pizza')">Massa de pizza</button>
+                        <button onclick="adicionarItemPreDefinido('Massa de lasanha')">Massa de lasanha</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Proteínas</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Carne bovina')">Carne bovina</button>
+                        <button onclick="adicionarItemPreDefinido('Frango')">Frango</button>
+                        <button onclick="adicionarItemPreDefinido('Carne suína')">Carne suína</button>
+                        <button onclick="adicionarItemPreDefinido('Peixes')">Peixes</button>
+                        <button onclick="adicionarItemPreDefinido('Frutos do mar')">Frutos do mar</button>
+                        <button onclick="adicionarItemPreDefinido('Linguiça')">Linguiça</button>
+                        <button onclick="adicionarItemPreDefinido('Salsicha')">Salsicha</button>
+                        <button onclick="adicionarItemPreDefinido('Hambúrguer congelado')">Hambúrguer congelado</button>
+                        <button onclick="adicionarItemPreDefinido('Bacon')">Bacon</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Ovos e laticínios</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Ovos')">Ovos</button>
+                        <button onclick="adicionarItemPreDefinido('Leite')">Leite</button>
+                        <button onclick="adicionarItemPreDefinido('Leite em pó')">Leite em pó</button>
+                        <button onclick="adicionarItemPreDefinido('Leite condensado')">Leite condensado</button>
+                        <button onclick="adicionarItemPreDefinido('Creme de leite')">Creme de leite</button>
+                        <button onclick="adicionarItemPreDefinido('Queijos')">Queijos</button>
+                        <button onclick="adicionarItemPreDefinido('Requeijão')">Requeijão</button>
+                        <button onclick="adicionarItemPreDefinido('Manteiga')">Manteiga</button>
+                        <button onclick="adicionarItemPreDefinido('Margarina')">Margarina</button>
+                        <button onclick="adicionarItemPreDefinido('Iogurte')">Iogurte</button>
+                        <button onclick="adicionarItemPreDefinido('Leite fermentado')">Leite fermentado</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Legumes e verduras</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Alface')">Alface</button>
+                        <button onclick="adicionarItemPreDefinido('Rúcula')">Rúcula</button>
+                        <button onclick="adicionarItemPreDefinido('Agrião')">Agrião</button>
+                        <button onclick="adicionarItemPreDefinido('Espinafre')">Espinafre</button>
+                        <button onclick="adicionarItemPreDefinido('Couve')">Couve</button>
+                        <button onclick="adicionarItemPreDefinido('Brócolis')">Brócolis</button>
+                        <button onclick="adicionarItemPreDefinido('Couve-flor')">Couve-flor</button>
+                        <button onclick="adicionarItemPreDefinido('Tomate')">Tomate</button>
+                        <button onclick="adicionarItemPreDefinido('Cenoura')">Cenoura</button>
+                        <button onclick="adicionarItemPreDefinido('Beterraba')">Beterraba</button>
+                        <button onclick="adicionarItemPreDefinido('Pepino')">Pepino</button>
+                        <button onclick="adicionarItemPreDefinido('Abobrinha')">Abobrinha</button>
+                        <button onclick="adicionarItemPreDefinido('Berinjela')">Berinjela</button>
+                        <button onclick="adicionarItemPreDefinido('Pimentão')">Pimentão</button>
+                        <button onclick="adicionarItemPreDefinido('Chuchu')">Chuchu</button>
+                        <button onclick="adicionarItemPreDefinido('Batata')">Batata</button>
+                        <button onclick="adicionarItemPreDefinido('Mandioca')">Mandioca</button>
+                        <button onclick="adicionarItemPreDefinido('Inhame')">Inhame</button>
+                        <button onclick="adicionarItemPreDefinido('Rabanete')">Rabanete</button>
+                        <button onclick="adicionarItemPreDefinido('Cebola')">Cebola</button>
+                        <button onclick="adicionarItemPreDefinido('Alho')">Alho</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Frutas</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Banana')">Banana</button>
+                        <button onclick="adicionarItemPreDefinido('Maçã')">Maçã</button>
+                        <button onclick="adicionarItemPreDefinido('Laranja')">Laranja</button>
+                        <button onclick="adicionarItemPreDefinido('Mamão')">Mamão</button>
+                        <button onclick="adicionarItemPreDefinido('Abacaxi')">Abacaxi</button>
+                        <button onclick="adicionarItemPreDefinido('Melancia')">Melancia</button>
+                        <button onclick="adicionarItemPreDefinido('Melão')">Melão</button>
+                        <button onclick="adicionarItemPreDefinido('Morango')">Morango</button>
+                        <button onclick="adicionarItemPreDefinido('Uva')">Uva</button>
+                        <button onclick="adicionarItemPreDefinido('Pera')">Pera</button>
+                        <button onclick="adicionarItemPreDefinido('Kiwi')">Kiwi</button>
+                        <button onclick="adicionarItemPreDefinido('Manga')">Manga</button>
+                        <button onclick="adicionarItemPreDefinido('Abacate')">Abacate</button>
+                        <button onclick="adicionarItemPreDefinido('Maracujá')">Maracujá</button>
+                        <button onclick="adicionarItemPreDefinido('Limão')">Limão</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Congelados e processados</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Nuggets')">Nuggets</button>
+                        <button onclick="adicionarItemPreDefinido('Lasanha congelada')">Lasanha congelada</button>
+                        <button onclick="adicionarItemPreDefinido('Pizzas congeladas')">Pizzas congeladas</button>
+                        <button onclick="adicionarItemPreDefinido('Batata frita congelada')">Batata frita congelada</button>
+                        <button onclick="adicionarItemPreDefinido('Polpa de fruta')">Polpa de fruta</button>
+                        <button onclick="adicionarItemPreDefinido('Hambúrguer congelado')">Hambúrguer congelado</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Temperos e condimentos</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Sal')">Sal</button>
+                        <button onclick="adicionarItemPreDefinido('Açúcar')">Açúcar</button>
+                        <button onclick="adicionarItemPreDefinido('Pimenta-do-reino')">Pimenta-do-reino</button>
+                        <button onclick="adicionarItemPreDefinido('Páprica')">Páprica</button>
+                        <button onclick="adicionarItemPreDefinido('Curry')">Curry</button>
+                        <button onclick="adicionarItemPreDefinido('Orégano')">Orégano</button>
+                        <button onclick="adicionarItemPreDefinido('Manjericão')">Manjericão</button>
+                        <button onclick="adicionarItemPreDefinido('Noz-moscada')">Noz-moscada</button>
+                        <button onclick="adicionarItemPreDefinido('Alecrim')">Alecrim</button>
+                        <button onclick="adicionarItemPreDefinido('Cominho')">Cominho</button>
+                        <button onclick="adicionarItemPreDefinido('Molho de tomate')">Molho de tomate</button>
+                        <button onclick="adicionarItemPreDefinido('Extrato de tomate')">Extrato de tomate</button>
+                        <button onclick="adicionarItemPreDefinido('Molho inglês')">Molho inglês</button>
+                        <button onclick="adicionarItemPreDefinido('Mostarda')">Mostarda</button>
+                        <button onclick="adicionarItemPreDefinido('Ketchup')">Ketchup</button>
+                        <button onclick="adicionarItemPreDefinido('Maionese')">Maionese</button>
+                        <button onclick="adicionarItemPreDefinido('Vinagre')">Vinagre</button>
+                        <button onclick="adicionarItemPreDefinido('Azeite de oliva')">Azeite de oliva</button>
+                        <button onclick="adicionarItemPreDefinido('Óleo de soja')">Óleo de soja</button>
+                        <button onclick="adicionarItemPreDefinido('Óleo de girassol')">Óleo de girassol</button>
+                        <button onclick="adicionarItemPreDefinido('Óleo de coco')">Óleo de coco</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Bebidas</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Água mineral')">Água mineral</button>
+                        <button onclick="adicionarItemPreDefinido('Refrigerante')">Refrigerante</button>
+                        <button onclick="adicionarItemPreDefinido('Suco')">Suco</button>
+                        <button onclick="adicionarItemPreDefinido('Café')">Café</button>
+                        <button onclick="adicionarItemPreDefinido('Chá')">Chá</button>
+                        <button onclick="adicionarItemPreDefinido('Achocolatado')">Achocolatado</button>
+                        <button onclick="adicionarItemPreDefinido('Energético')">Energético</button>
+                        <button onclick="adicionarItemPreDefinido('Cerveja')">Cerveja</button>
+                        <button onclick="adicionarItemPreDefinido('Vinho')">Vinho</button>
+                        <button onclick="adicionarItemPreDefinido('Leite vegetal')">Leite vegetal</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Doces e snacks</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Biscoitos')">Biscoitos</button>
+                        <button onclick="adicionarItemPreDefinido('Chocolate')">Chocolate</button>
+                        <button onclick="adicionarItemPreDefinido('Balas')">Balas</button>
+                        <button onclick="adicionarItemPreDefinido('Amendoim')">Amendoim</button>
+                        <button onclick="adicionarItemPreDefinido('Pipoca de micro-ondas')">Pipoca de micro-ondas</button>
+                        <button onclick="adicionarItemPreDefinido('Barra de cereais')">Barra de cereais</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Produtos de padaria</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Fermento biológico')">Fermento biológico</button>
+                        <button onclick="adicionarItemPreDefinido('Fermento químico')">Fermento químico</button>
+                        <button onclick="adicionarItemPreDefinido('Leite condensado')">Leite condensado</button>
+                        <button onclick="adicionarItemPreDefinido('Creme de leite')">Creme de leite</button>
+                        <button onclick="adicionarItemPreDefinido('Coco ralado')">Coco ralado</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Higiene pessoal</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Sabonete')">Sabonete</button>
+                        <button onclick="adicionarItemPreDefinido('Shampoo')">Shampoo</button>
+                        <button onclick="adicionarItemPreDefinido('Condicionador')">Condicionador</button>
+                        <button onclick="adicionarItemPreDefinido('Creme dental')">Creme dental</button>
+                        <button onclick="adicionarItemPreDefinido('Escova de dentes')">Escova de dentes</button>
+                        <button onclick="adicionarItemPreDefinido('Fio dental')">Fio dental</button>
+                        <button onclick="adicionarItemPreDefinido('Desodorante')">Desodorante</button>
+                        <button onclick="adicionarItemPreDefinido('Perfume')">Perfume</button>
+                        <button onclick="adicionarItemPreDefinido('Papel higiênico')">Papel higiênico</button>
+                        <button onclick="adicionarItemPreDefinido('Absorvente')">Absorvente</button>
+                        <button onclick="adicionarItemPreDefinido('Aparelho de barbear')">Aparelho de barbear</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Limpeza doméstica</summary>
+                    <div class="categoria">
+                        <button onclick="adicionarItemPreDefinido('Detergente')">Detergente</button>
+                        <button onclick="adicionarItemPreDefinido('Sabão em pó')">Sabão em pó</button>
+                        <button onclick="adicionarItemPreDefinido('Amaciante')">Amaciante</button>
+                        <button onclick="adicionarItemPreDefinido('Água sanitária')">Água sanitária</button>
+                        <button onclick="adicionarItemPreDefinido('Desinfetante')">Desinfetante</button>
+                        <button onclick="adicionarItemPreDefinido('Esponjas')">Esponjas</button>
+                        <button onclick="adicionarItemPreDefinido('Sacos de lixo')">Sacos de lixo</button>
+                        <button onclick="adicionarItemPreDefinido('Papel toalha')">Papel toalha</button>
+                    </div>
+                </details>
+            </div>
+        </div>
     </div>
-    <table id="tabelaCompras">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantidade</th>
-                <th>Peso (kg)</th>
-                <th>Valor/kg (R$)</th>
-                <th>Total (R$)</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody id="listaItens"></tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">Total Geral:</td>
-                <td id="totalGeral">0,00</td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-    <button onclick="salvarLista()">Salvar Lista</button>
-    <button onclick="carregarLista()">Carregar Lista</button>
     <script src="script.js"></script>
 </body>
 </html>

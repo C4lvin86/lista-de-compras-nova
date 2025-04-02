@@ -1,28 +1,35 @@
 let itens = [];
-let editIndex = -1; // -1 significa que não estamos editando nada
+let editIndex = -1;
 
 function adicionarOuEditarItem() {
     const nome = document.getElementById('itemNome').value;
-    const qtd = parseFloat(document.getElementById('itemQtd').value) || 0;
+    const qtd = parseFloat(document.getElementById('itemQtd').value) || 1;
     const peso = parseFloat(document.getElementById('itemPeso').value) || 0;
     const valor = parseFloat(document.getElementById('itemValor').value) || 0;
 
-    if (nome && qtd > 0 && peso > 0 && valor > 0) {
-        const totalItem = (qtd * peso * valor).toFixed(2);
+    if (nome) {
+        const totalItem = peso > 0 ? (qtd * peso * valor).toFixed(2) : (qtd * valor).toFixed(2);
         if (editIndex === -1) {
-            // Adicionar novo item
             itens.push({ nome, qtd, peso, valor, totalItem });
         } else {
-            // Editar item existente
             itens[editIndex] = { nome, qtd, peso, valor, totalItem };
-            editIndex = -1; // Resetar após edição
-            document.getElementById('btnAcao').textContent = 'Adicionar'; // Voltar ao estado inicial
+            editIndex = -1;
+            document.getElementById('btnAcao').textContent = 'Adicionar';
         }
         atualizarTabela();
         limparCampos();
     } else {
-        alert('Preencha todos os campos corretamente!');
+        alert('O nome do item é obrigatório!');
     }
+}
+
+function adicionarItemPreDefinido(nome) {
+    const qtd = 1;
+    const peso = 0;
+    const valor = 0;
+    const totalItem = (qtd * valor).toFixed(2);
+    itens.push({ nome, qtd, peso, valor, totalItem });
+    atualizarTabela();
 }
 
 function removerItem(index) {
@@ -37,7 +44,7 @@ function editarItem(index) {
     document.getElementById('itemPeso').value = item.peso;
     document.getElementById('itemValor').value = item.valor;
     document.getElementById('btnAcao').textContent = 'Salvar Edição';
-    editIndex = index; // Armazenar o índice do item sendo editado
+    editIndex = index;
 }
 
 function atualizarTabela() {
@@ -63,6 +70,7 @@ function atualizarTabela() {
     });
 
     document.getElementById('totalGeral').textContent = totalGeral.toFixed(2);
+    document.getElementById('totalItens').textContent = itens.length;
 }
 
 function limparCampos() {
@@ -70,7 +78,7 @@ function limparCampos() {
     document.getElementById('itemQtd').value = '';
     document.getElementById('itemPeso').value = '';
     document.getElementById('itemValor').value = '';
-    editIndex = -1; // Garantir que não está editando ao limpar
+    editIndex = -1;
     document.getElementById('btnAcao').textContent = 'Adicionar';
 }
 
@@ -86,5 +94,12 @@ function carregarLista() {
         atualizarTabela();
     } else {
         alert('Nenhuma lista salva encontrada!');
+    }
+}
+
+function limparLista() {
+    if (confirm('Tem certeza que deseja limpar a lista?')) {
+        itens = [];
+        atualizarTabela();
     }
 }
