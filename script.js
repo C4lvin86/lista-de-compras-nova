@@ -1,6 +1,7 @@
 let itens = [];
+let editIndex = -1; // -1 significa que não estamos editando nada
 
-function adicionarItem() {
+function adicionarOuEditarItem() {
     const nome = document.getElementById('itemNome').value;
     const qtd = parseFloat(document.getElementById('itemQtd').value) || 0;
     const peso = parseFloat(document.getElementById('itemPeso').value) || 0;
@@ -8,7 +9,15 @@ function adicionarItem() {
 
     if (nome && qtd > 0 && peso > 0 && valor > 0) {
         const totalItem = (qtd * peso * valor).toFixed(2);
-        itens.push({ nome, qtd, peso, valor, totalItem });
+        if (editIndex === -1) {
+            // Adicionar novo item
+            itens.push({ nome, qtd, peso, valor, totalItem });
+        } else {
+            // Editar item existente
+            itens[editIndex] = { nome, qtd, peso, valor, totalItem };
+            editIndex = -1; // Resetar após edição
+            document.getElementById('btnAcao').textContent = 'Adicionar'; // Voltar ao estado inicial
+        }
         atualizarTabela();
         limparCampos();
     } else {
@@ -19,6 +28,16 @@ function adicionarItem() {
 function removerItem(index) {
     itens.splice(index, 1);
     atualizarTabela();
+}
+
+function editarItem(index) {
+    const item = itens[index];
+    document.getElementById('itemNome').value = item.nome;
+    document.getElementById('itemQtd').value = item.qtd;
+    document.getElementById('itemPeso').value = item.peso;
+    document.getElementById('itemValor').value = item.valor;
+    document.getElementById('btnAcao').textContent = 'Salvar Edição';
+    editIndex = index; // Armazenar o índice do item sendo editado
 }
 
 function atualizarTabela() {
@@ -34,7 +53,10 @@ function atualizarTabela() {
             <td>${item.peso}</td>
             <td>${item.valor.toFixed(2)}</td>
             <td>${item.totalItem}</td>
-            <td><button onclick="removerItem(${index})">X</button></td>
+            <td>
+                <button onclick="editarItem(${index})">Editar</button>
+                <button onclick="removerItem(${index})">X</button>
+            </td>
         `;
         listaItens.appendChild(row);
         totalGeral += parseFloat(item.totalItem);
@@ -48,6 +70,8 @@ function limparCampos() {
     document.getElementById('itemQtd').value = '';
     document.getElementById('itemPeso').value = '';
     document.getElementById('itemValor').value = '';
+    editIndex = -1; // Garantir que não está editando ao limpar
+    document.getElementById('btnAcao').textContent = 'Adicionar';
 }
 
 function salvarLista() {
