@@ -68,6 +68,7 @@ header {
 .menu-container {
     position: relative;
     display: inline-block;
+    z-index: 10; /* Garante que o menu-container esteja acima dos outros botões */
 }
 
 #menu-btn {
@@ -95,7 +96,7 @@ header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 10px;
-    z-index: 1000;
+    z-index: 20; /* Menu dropdown acima de tudo */
 }
 
 .menu-dropdown button {
@@ -193,6 +194,8 @@ td button:hover {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    position: relative; /* Garante que os botões estejam em uma camada controlada */
+    z-index: 5; /* Abaixo do menu-container, mas acima de outros elementos */
 }
 
 .botoes button {
@@ -202,9 +205,11 @@ td button:hover {
     border-radius: 5px;
     padding: 8px 16px;
     margin: 5px;
-    cursor: pointer; /* Garante que os botões sejam clicáveis */
+    cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
-    pointer-events: auto; /* Garante que os eventos de clique sejam capturados */
+    pointer-events: auto;
+    position: relative; /* Garante que cada botão tenha sua própria camada */
+    z-index: 10; /* Cada botão acima do container .botoes, mas abaixo do menu-dropdown quando aberto */
 }
 
 .botoes button:hover {
@@ -232,6 +237,7 @@ td button:hover {
     border-radius: 5px;
     opacity: 0;
     transition: opacity 0.5s;
+    z-index: 30; /* Acima de tudo */
 }
 
 .fade-in {
