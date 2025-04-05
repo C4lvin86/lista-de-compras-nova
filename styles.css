@@ -98,11 +98,11 @@ header {
     border-radius: 5px;
     padding: 10px;
     z-index: 20;
-    pointer-events: none; /* Evita interferência quando oculto */
+    pointer-events: none;
 }
 
 .menu-dropdown[style*="display: block"] {
-    pointer-events: auto; /* Ativa apenas quando visível */
+    pointer-events: auto;
 }
 
 .menu-dropdown button {
@@ -202,6 +202,7 @@ td button:hover {
     gap: 10px;
     position: relative;
     z-index: 5;
+    padding: 10px 0; /* Espaço extra para evitar sobreposição */
 }
 
 .botoes button {
@@ -218,6 +219,7 @@ td button:hover {
     z-index: 10;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    user-select: none; /* Evita seleção de texto no toque */
 }
 
 .botoes button:hover {
@@ -308,12 +310,12 @@ td button:hover {
     .botoes {
         flex-wrap: wrap;
         gap: 8px;
-        padding: 10px 0; /* Adiciona espaço extra no mobile */
+        padding: 10px 0;
     }
 
     .botoes button {
         padding: 6px 12px;
         font-size: 1em;
-        min-width: 50px; /* Garante tamanho mínimo clicável */
+        min-width: 50px;
     }
 }
