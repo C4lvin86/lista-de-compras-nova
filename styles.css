@@ -28,7 +28,7 @@ body {
     background-blend-mode: overlay;
     color: var(--text-color);
     transition: all 0.3s ease;
-    -webkit-tap-highlight-color: transparent; /* Remove destaque azul em toques no mobile */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .container {
@@ -98,6 +98,11 @@ header {
     border-radius: 5px;
     padding: 10px;
     z-index: 20;
+    pointer-events: none; /* Evita interferência quando oculto */
+}
+
+.menu-dropdown[style*="display: block"] {
+    pointer-events: auto; /* Ativa apenas quando visível */
 }
 
 .menu-dropdown button {
@@ -211,8 +216,8 @@ td button:hover {
     pointer-events: auto;
     position: relative;
     z-index: 10;
-    touch-action: manipulation; /* Melhora interação em telas de toque */
-    -webkit-tap-highlight-color: transparent; /* Remove destaque em toques */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .botoes button:hover {
@@ -301,12 +306,14 @@ td button:hover {
     }
 
     .botoes {
-        flex-wrap: wrap; /* Permite que os botões se ajustem em telas pequenas */
-        gap: 8px; /* Reduz o espaçamento em mobile */
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 0; /* Adiciona espaço extra no mobile */
     }
 
     .botoes button {
-        padding: 6px 12px; /* Reduz o tamanho dos botões em mobile */
-        font-size: 1em; /* Ajusta o tamanho do ícone */
+        padding: 6px 12px;
+        font-size: 1em;
+        min-width: 50px; /* Garante tamanho mínimo clicável */
     }
 }

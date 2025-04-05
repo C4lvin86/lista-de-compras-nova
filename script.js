@@ -355,6 +355,7 @@ function fecharHistorico() {
     document.getElementById('historico-modal').style.display = 'none';
 }
 
+// Listeners padrão
 document.getElementById('itemNome').addEventListener('input', atualizarAutocompletarECategoria);
 document.getElementById('menu-btn').addEventListener('click', toggleMenu);
 document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -363,8 +364,23 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     document.getElementById('theme-toggle').textContent = document.body.dataset.theme === 'dark' ? '☀️' : '🌙';
 });
 
+// Suporte a eventos de toque para mobile
 window.onload = () => {
     document.body.dataset.theme = localStorage.getItem('theme') || 'light';
     document.getElementById('theme-toggle').textContent = document.body.dataset.theme === 'dark' ? '☀️' : '🌙';
     carregarLista();
+
+    // Adiciona eventos de toque para os botões Carregar e Limpar
+    const btnCarregar = document.querySelector('.botoes button:nth-child(2)');
+    const btnLimpar = document.querySelector('.botoes button:nth-child(3)');
+
+    btnCarregar.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        carregarLista();
+    });
+
+    btnLimpar.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        limparLista();
+    });
 };
