@@ -1,20 +1,40 @@
+:root {
+    --bg-color: #e6ffe6;
+    --text-color: #000000;
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --button-bg: #4CAF50;
+    --button-hover: #45a049;
+    --tabela-bg: #fffacd; /* Amarelo claro como papel de cupom */
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --container-bg: rgba(30, 30, 30, 0.95);
+    --button-bg: #66bb6a;
+    --button-hover: #558b2f;
+    --tabela-bg: #d1c08a; /* Tom amarelado mais escuro para o modo escuro */
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png') repeat, #e6ffe6;
+    min-height: 100vh;
+    background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png') repeat, var(--bg-color);
     background-blend-mode: overlay;
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 .container {
     text-align: center;
     width: 90%;
-    max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.95);
+    max-width: 1000px;
+    background-color: var(--container-bg);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -22,8 +42,14 @@ body {
     overflow-y: auto;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .titulo {
-    color: green;
+    color: #4CAF50;
     display: inline;
 }
 
@@ -32,14 +58,97 @@ body {
     vertical-align: middle;
 }
 
-.formulario input {
-    margin: 5px;
-    padding: 5px;
-    width: 120px;
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+#menu-btn {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#menu-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover);
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--container-bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.menu-dropdown button {
+    display: block;
+    width: 100%;
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 5px 0;
+    text-align: left;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.menu-dropdown button:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover);
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.formulario input, .formulario select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.formulario button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.formulario button:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover);
+}
+
+.filtros {
+    margin: 10px 0;
 }
 
 .tabela-container {
-    max-height: 25vh;
+    max-height: 30vh;
     overflow-y: auto;
 }
 
@@ -47,97 +156,136 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    background-color: var(--tabela-bg);
+    font-family: 'Courier New', Courier, monospace; /* Fonte estilo impressora */
+    font-size: 0.6em; /* Reduzido para 60% do tamanho original (assumindo 1em como base) */
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px solid #999; /* Bordas mais escuras para contraste */
+    padding: 3px; /* Reduzido de 8px para ~60% menor */
     text-align: center;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #e6d78a; /* Tom amarelado mais escuro para o cabeçalho */
 }
 
-button {
-    padding: 5px 10px;
-    margin: 5px;
+td input[type="checkbox"] {
     cursor: pointer;
 }
 
-.botoes {
-    margin-top: 10px;
+td button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 3px;
+    transition: transform 0.2s;
 }
 
-.botoes button:nth-child(3) { /* Estilo para o botão "Limpar Lista" */
-    background-color: #ff4d4d;
+td button:hover {
+    transform: scale(1.2);
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.botoes button {
+    background-color: var(--button-bg);
     color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin: 5px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.botoes button:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover);
+}
+
+.botoes button:nth-child(3) { /* Limpar Lista */
+    background-color: #ff4d4d;
     border: 1px solid #cc0000;
-    padding: 3px 6px; /* 40% menor que o padrão */
-    font-size: 0.66em; /* 40% menor */
 }
 
 .botoes button:nth-child(3):hover {
     background-color: #cc0000;
 }
 
-.categorias {
-    margin-top: 20px;
-}
-
-.categorias-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-details {
-    width: 150px;
-    margin: 0;
-}
-
-summary {
-    cursor: pointer;
-    font-size: 0.66em;
-    color: #fff;
-    background-color: #808080;
-    padding: 3px 6px;
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
     border-radius: 5px;
-    text-align: center;
-    border: 1px solid #666;
-    outline: none;
+    opacity: 0;
+    transition: opacity 0.5s;
 }
 
-summary:hover {
-    background-color: #666;
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
 }
 
-summary::-webkit-details-marker {
-    display: none;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-summary::marker {
-    display: none;
-}
-
-.categoria {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.categoria button {
-    background-color: #d0f0d0;
-    border: 1px solid #a0d0a0;
-    border-radius: 3px;
-    padding: 4px 8px;
-    font-size: 0.9em;
-    margin: 2px 0;
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    text-align: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.categoria button:hover {
-    background-color: #a0d0a0;
+.modal-content {
+    background-color: var(--container-bg);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.modal-content button:hover {
+    transform: scale(1.05);
+    background-color: var(--button-hover);
+}
+
+@media (max-width: 768px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
 }
