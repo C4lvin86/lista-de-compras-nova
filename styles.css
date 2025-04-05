@@ -4,7 +4,7 @@
     --container-bg: rgba(255, 255, 255, 0.95);
     --button-bg: #4CAF50;
     --button-hover: #45a049;
-    --tabela-bg: #fffacd; /* Amarelo claro como papel de cupom */
+    --tabela-bg: #fffacd;
 }
 
 [data-theme="dark"] {
@@ -13,7 +13,7 @@
     --container-bg: rgba(30, 30, 30, 0.95);
     --button-bg: #66bb6a;
     --button-hover: #558b2f;
-    --tabela-bg: #d1c08a; /* Tom amarelado mais escuro para o modo escuro */
+    --tabela-bg: #d1c08a;
 }
 
 body {
@@ -157,18 +157,18 @@ table {
     border-collapse: collapse;
     margin: 20px 0;
     background-color: var(--tabela-bg);
-    font-family: 'Courier New', Courier, monospace; /* Fonte estilo impressora */
-    font-size: 0.6em; /* Reduzido para 60% do tamanho original (assumindo 1em como base) */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.6em;
 }
 
 th, td {
-    border: 1px solid #999; /* Bordas mais escuras para contraste */
-    padding: 3px; /* Reduzido de 8px para ~60% menor */
+    border: 1px solid #999;
+    padding: 3px;
     text-align: center;
 }
 
 th {
-    background-color: #e6d78a; /* Tom amarelado mais escuro para o cabeçalho */
+    background-color: #e6d78a;
 }
 
 td input[type="checkbox"] {
@@ -202,7 +202,9 @@ td button:hover {
     border-radius: 5px;
     padding: 8px 16px;
     margin: 5px;
+    cursor: pointer; /* Garante que os botões sejam clicáveis */
     transition: transform 0.2s, background-color 0.2s;
+    pointer-events: auto; /* Garante que os eventos de clique sejam capturados */
 }
 
 .botoes button:hover {
