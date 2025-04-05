@@ -28,6 +28,7 @@ body {
     background-blend-mode: overlay;
     color: var(--text-color);
     transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent; /* Remove destaque azul em toques no mobile */
 }
 
 .container {
@@ -68,7 +69,7 @@ header {
 .menu-container {
     position: relative;
     display: inline-block;
-    z-index: 10; /* Garante que o menu-container esteja acima dos outros botões */
+    z-index: 10;
 }
 
 #menu-btn {
@@ -96,7 +97,7 @@ header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 10px;
-    z-index: 20; /* Menu dropdown acima de tudo */
+    z-index: 20;
 }
 
 .menu-dropdown button {
@@ -194,8 +195,8 @@ td button:hover {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    position: relative; /* Garante que os botões estejam em uma camada controlada */
-    z-index: 5; /* Abaixo do menu-container, mas acima de outros elementos */
+    position: relative;
+    z-index: 5;
 }
 
 .botoes button {
@@ -208,8 +209,10 @@ td button:hover {
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
     pointer-events: auto;
-    position: relative; /* Garante que cada botão tenha sua própria camada */
-    z-index: 10; /* Cada botão acima do container .botoes, mas abaixo do menu-dropdown quando aberto */
+    position: relative;
+    z-index: 10;
+    touch-action: manipulation; /* Melhora interação em telas de toque */
+    -webkit-tap-highlight-color: transparent; /* Remove destaque em toques */
 }
 
 .botoes button:hover {
@@ -237,7 +240,7 @@ td button:hover {
     border-radius: 5px;
     opacity: 0;
     transition: opacity 0.5s;
-    z-index: 30; /* Acima de tudo */
+    z-index: 30;
 }
 
 .fade-in {
@@ -295,5 +298,15 @@ td button:hover {
 @media (max-width: 768px) {
     .formulario {
         grid-template-columns: 1fr;
+    }
+
+    .botoes {
+        flex-wrap: wrap; /* Permite que os botões se ajustem em telas pequenas */
+        gap: 8px; /* Reduz o espaçamento em mobile */
+    }
+
+    .botoes button {
+        padding: 6px 12px; /* Reduz o tamanho dos botões em mobile */
+        font-size: 1em; /* Ajusta o tamanho do ícone */
     }
 }
