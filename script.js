@@ -85,7 +85,7 @@ const itensPreDefinidos = {
     "pizzas congeladas": "Congelados e processados",
     "batata frita congelada": "Congelados e processados",
     "polpa de fruta": "Congelados e processados",
-    "sal": ">Temperos e condimentos",
+    "sal": "Temperos e condimentos",
     "açúcar": "Temperos e condimentos",
     "pimenta-do-reino": "Temperos e condimentos",
     "páprica": "Temperos e condimentos",
@@ -364,26 +364,23 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     document.getElementById('theme-toggle').textContent = document.body.dataset.theme === 'dark' ? '☀️' : '🌙';
 });
 
-// Suporte a eventos de toque e clique para mobile e desktop
+// Suporte a toque para Chrome mobile
 window.onload = () => {
     document.body.dataset.theme = localStorage.getItem('theme') || 'light';
     document.getElementById('theme-toggle').textContent = document.body.dataset.theme === 'dark' ? '☀️' : '🌙';
     carregarLista();
 
+    // Adiciona suporte a toque sem interferir no onclick
     const btnCarregar = document.querySelector('.botoes button:nth-child(2)');
     const btnLimpar = document.querySelector('.botoes button:nth-child(3)');
 
-    // Função para evitar eventos duplicados
-    function handleEvent(e, callback) {
+    btnCarregar.addEventListener('touchend', (e) => {
         e.preventDefault();
-        callback();
-    }
+        carregarLista();
+    });
 
-    // Eventos para Carregar
-    btnCarregar.addEventListener('click', (e) => handleEvent(e, carregarLista));
-    btnCarregar.addEventListener('touchend', (e) => handleEvent(e, carregarLista));
-
-    // Eventos para Limpar
-    btnLimpar.addEventListener('click', (e) => handleEvent(e, limparLista));
-    btnLimpar.addEventListener('touchend', (e) => handleEvent(e, limparLista));
+    btnLimpar.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        limparLista();
+    });
 };
