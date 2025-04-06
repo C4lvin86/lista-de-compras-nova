@@ -150,7 +150,7 @@ header {
 }
 
 .tabela-container {
-    max-height: 30vh;
+    max-height: 50vh;
     overflow-y: auto;
 }
 
@@ -196,7 +196,7 @@ td button:hover {
     align-items: center;
     gap: 10px;
     position: relative;
-    z-index: 5;
+    z-index: 50; /* Garante que os botões fiquem acima da tabela e do menu */
 }
 
 .botoes button {
@@ -310,5 +310,6 @@ td button:hover {
         padding: 6px 12px;
         font-size: 1em;
         min-width: 50px;
-    }
+.botoes button {
+    z-index: 50; /* Teste com um valor alto */
 }

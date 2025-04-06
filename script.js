@@ -248,6 +248,7 @@ function salvarLista() {
 }
 
 function carregarLista() {
+    console.log('Botão Carregar Lista clicado. Itens:', itens.length);
     const listaSalva = localStorage.getItem('listaCompras');
     if (listaSalva) {
         itens = JSON.parse(listaSalva);
@@ -259,6 +260,7 @@ function carregarLista() {
 }
 
 function limparLista() {
+    console.log('Botão Limpar Lista clicado. Itens:', itens.length);
     if (confirm('Tem certeza que deseja limpar a lista?')) {
         itens = [];
         atualizarTabela();
