@@ -381,9 +381,9 @@ window.onload = () => {
 
     // Eventos para Carregar
     btnCarregar.addEventListener('click', (e) => handleEvent(e, carregarLista));
-    btnCarregar.addEventListener('touchstart', (e) => handleEvent(e, carregarLista));
+    btnCarregar.addEventListener('touchend', (e) => handleEvent(e, carregarLista));
 
     // Eventos para Limpar
     btnLimpar.addEventListener('click', (e) => handleEvent(e, limparLista));
-    btnLimpar.addEventListener('touchstart', (e) => handleEvent(e, limparLista));
+    btnLimpar.addEventListener('touchend', (e) => handleEvent(e, limparLista));
 };
